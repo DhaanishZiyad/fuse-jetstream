@@ -10,13 +10,7 @@
     </div>
 @endif
 
-<div class="container mx-auto p-10 bg-[#DCDCDC] font-ruda flex justify-center items-center">
-    <div class="flex flex-col md:flex-row justify-between gap-8 w-[80%]">
-
-        @livewire('shopping-cart')
-        
-    </div>
-</div>
+@livewire('shopping-cart')
 
 @endsection
  
