@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container mx-auto font-ruda flex flex-col items-center py-10">
-    <div class="flex flex-col md:flex-row w-[80%] rounded-3xl overflow-hidden">
+    <div class="flex flex-col md:flex-row w-9/12 overflow-hidden">
         <!-- Image Section -->
         <div class="w-full md:w-1/2 p-6 flex justify-end">
             <img src="{{ asset('storage/' . $product->image_path) }}" 

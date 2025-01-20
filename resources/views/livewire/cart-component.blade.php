@@ -1,5 +1,5 @@
-<div class="flex justify-center font-ruda items-center  bg-white">
-    <div class="w-full max-w-6xl mx-auto p-6">
+<div class="font-ruda items-center bg-white h-[400px] flex justify-center items-center">
+    <div class="w-9/12 py-6">
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Cart Items Column -->
             <div class="w-full md:w-2/3">
@@ -25,7 +25,7 @@
                                         name="quantity" 
                                         value="{{ $item->quantity }}" 
                                         min="1" 
-                                        class="w-12 text-center border-2 border-fuse-green-500 rounded-md"
+                                        class="w-24 text-center border-2 border-fuse-green-500 rounded-md"
                                         wire:model="cartItems.{{ $loop->index }}.quantity" 
                                         wire:change="updateQuantity({{ $item->id }}, $event.target.value)">
                                     
@@ -59,7 +59,7 @@
                     </div>
                     <div class="mt-6">
                         <button class="w-full bg-[#21A179] text-white px-5 py-3 rounded-md font-bold">
-                            Proceed to Checkout
+                            Checkout
                         </button>
                     </div>
                 </div>

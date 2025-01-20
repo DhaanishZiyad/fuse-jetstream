@@ -7,7 +7,8 @@
 <div class="container mx-auto p-6 w-[80%]">
     <h2 class="text-2xl font-bold mb-4">Add Product</h2>
     @if(session('success'))
-        <div class="bg-green-100 text-green-800 p-2 rounded mb-4">
+        <div id="success-message" 
+             class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
             {{ session('success') }}
         </div>
     @endif
@@ -86,4 +87,18 @@
         </div>
     </form>
 </div>
+
+<script>
+    // Automatically hide the success message after 5 seconds
+    document.addEventListener('DOMContentLoaded', () => {
+        const successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            setTimeout(() => {
+                successMessage.style.transition = "opacity 0.5s ease-in-out";
+                successMessage.style.opacity = "0";
+                setTimeout(() => successMessage.remove(), 500); // Remove element after fade-out
+            }, 3000); // 5 seconds
+        }
+    });
+</script>
 @endsection

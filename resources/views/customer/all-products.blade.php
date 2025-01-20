@@ -4,8 +4,8 @@
 
 @section('content')
 
-<div class="container mx-auto p-10 flex justify-center bg-[#DCDCDC] font-ruda flex-col items-center">
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-[80%]">
+<div class="py-10 flex justify-center bg-[#DCDCDC] font-ruda flex-col items-center">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-9/12">
         <!-- Loop through all products from the database -->
         @if ($products->count() > 0)
             @foreach ($products as $product)

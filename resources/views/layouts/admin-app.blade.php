@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="bg-[#1E1E1E] font-raleway font-extrabold text-fuse-green-500">
-        <nav class="flex justify-between items-center w-[80%] mx-auto h-20">
+        <nav class="flex justify-between items-center w-9/12 mx-auto h-20">
             <div>
                 <a href="#">
                     <img class="h-10" src="{{ asset('images/fuse_logo green.png') }}" alt="" />

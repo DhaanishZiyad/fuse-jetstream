@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="bg-fuse-green-500 font-raleway font-extrabold text-[#1E1E1E]">
-        <nav class="flex justify-between items-center w-[80%] mx-auto h-20">
+        <nav class="flex justify-between items-center w-9/12 mx-auto h-20">
             <div>
                 <a href="{{ route('customer.dashboard') }}">
                     <img class="h-10" src="{{ asset('images/fuse_logo.png') }}" alt="" />
@@ -30,22 +30,25 @@
             </div>  
 
             <div class="flex items-center">
-
-                    <a href="#">
-                        <img class="h-7" src="{{ asset('images/Heart.svg') }}" alt="Profie" />
-                    </a>
-                    <a href="{{ route('customer.show-cart') }}">
-                        <img class="h-7 ml-7" src="{{ asset('images/Shopping Card.svg') }}" alt="Profie" />
-                    </a>
-                    <a href="#">
-                        <img class="h-7 ml-7" src="{{ asset('images/Profile.svg') }}" alt="Profie" />
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="h-7">
-                        @csrf
-                        <button type="submit" class="btn btn-logout ml-7">
-                            <img class="h-7" src="{{ asset('images/Exit.svg') }}" alt="Logout" />
-                        </button>
-                    </form>
+                <a href="#">
+                    <img class="h-7" src="{{ asset('images/Heart.svg') }}" alt="Profie" />
+                </a>
+                <a href="{{ route('customer.show-cart') }}">
+                    <img class="h-7 ml-7" src="{{ asset('images/Shopping Card.svg') }}" alt="Profie" />
+                </a>
+                <a href="#">
+                    <img class="h-7 ml-7" src="{{ asset('images/Profile.svg') }}" alt="Profie" />
+                </a>
+                @auth
+                <!-- Only show logout button if user is logged in -->
+                <form method="POST" action="{{ route('logout') }}" class="h-7">
+                    @csrf
+                    <button type="submit" class="btn btn-logout ml-7">
+                        <img class="h-7" src="{{ asset('images/Exit.svg') }}" alt="Logout" />
+                    </button>
+                </form>
+                @endauth
+            </div>
 
             </div>
         </nav>
@@ -57,14 +60,14 @@
 
     <footer>
         <div class="bg-[#1E1E1E] h-72 flex flex-row justify-center">
-            <div class="flex-col w-[26%] pt-12">
+            <div class="flex-col w-[25%] pt-12">
                 <img class="h-10" src="{{ asset('images/fuse_logo green.png') }}" alt="">
                 <p class="font-raleway font-bold uppercase text-fuse-green-500 pt-3 text-xl">Fuse Jerseys</p>
                 <p class="font-ruda text-white">No 69, Sigma Lane, Ohio</p>
                 <p class="font-ruda text-white">+960 779 8513</p>
                 <p class="font-ruda text-white">fuse.jerseys@gmail.com</p>
             </div>
-            <div class="flex-col w-[26%] pt-12">
+            <div class="flex-col w-[25%] pt-12">
                 <div class="relative flex">
                     <div class="">
                         <p class="font-raleway font-bold uppercase pt-2 text-fuse-green-500">navigation</p>
@@ -79,7 +82,7 @@
                 <div class=" flex flex-col">
                 </div>
             </div>
-            <div class="flex flex-col w-[26%] justify-end ">
+            <div class="flex flex-col w-[25%] justify-end ">
                 <div class="flex justify-end">
                     <a href="#"><img class="pl-5" src="/fuse_website_final/src/media/X.svg" alt=""></a>
                     <a href="#"><img class="pl-5" src="/fuse_website_final/src/media/Facebook.svg" alt=""></a>
@@ -88,7 +91,7 @@
             </div>
         </div>
         <div class="flex justify-center items-center w-full bg-[#1E1E1E] h-14 pt-4 pb-10">
-            <hr class="w-[80%] h-[2px] bg-fuse-green-500 border-0">
+            <hr class="w-9/12 h-[2px] bg-fuse-green-500 border-0">
         </div>
     </footer>
     @livewireScripts

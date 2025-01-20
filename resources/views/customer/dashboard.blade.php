@@ -27,12 +27,12 @@
 </div>
 
 <!-- Product Cards Section -->
-<div class="container mx-auto p-10 flex justify-center bg-[#DCDCDC] font-ruda flex-col items-center">
-    <div class="flex w-[80%] pb-8">
+<div class="py-10 flex justify-center bg-[#DCDCDC] font-ruda flex-col items-center">
+    <div class="flex w-9/12 pb-8">
         <h1 class="font-raleway font-bold text-3xl text-[black]">Latest Additions</h1>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-[80%] pb-12">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-9/12 pb-12">
         <!-- Loop through products from the database, limiting to 4 products -->
         @if ($products->count() > 0)
             @foreach ($products->take(4) as $product)
