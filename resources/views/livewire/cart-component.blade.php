@@ -5,34 +5,34 @@
             <div class="w-full md:w-2/3">
                 <h2 class="text-2xl font-raleway font-bold text-fuse-green-500 mb-4">YOUR CART</h2>
                 <hr class="mb-2 border-fuse-green-500 border-[1px]">
-                @if ($cartItems->count() > 0)
+                @if (count($cartItems) > 0)
                     <div class="space-y-6">
                         @foreach ($cartItems as $item)
                             <div class="flex justify-between items-center border-b pb-4">
                                 <div class="flex items-center space-x-4">
-                                    <img src="{{ asset('storage/' . $item->product->image_path) }}" 
-                                         alt="{{ $item->product->name }}" 
+                                    <img src="{{ asset('storage/' . $item['product']['image_path']) }}" 
+                                         alt="{{ $item['product']['name'] }}" 
                                          class="w-20 h-20 object-cover">
                                     <div>
-                                        <h3 class="font-bold">{{ $item->product->name }}</h3>
+                                        <h3 class="font-bold">{{ $item['product']['name'] }}</h3>
+                                        <p class="text-sm text-gray-500">Size: {{ $item['size'] }}</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4">
                                     <!-- Normal Quantity Input -->
                                     <input 
                                         type="number" 
-                                        id="quantity-{{ $item->id }}" 
+                                        id="quantity-{{ $item['id'] }}" 
                                         name="quantity" 
-                                        value="{{ $item->quantity }}" 
+                                        value="{{ $item['quantity'] }}" 
                                         min="1" 
                                         class="w-24 text-center border-2 border-fuse-green-500 rounded-md"
                                         wire:model="cartItems.{{ $loop->index }}.quantity" 
-                                        wire:change="updateQuantity({{ $item->id }}, $event.target.value)">
-                                    
+                                        wire:change="updateQuantity({{ $item['id'] }}, $event.target.value)">
                                     <!-- Remove Button -->
-                                    <button wire:click="removeItem({{ $item->id }})" 
+                                    <button wire:click="removeItem({{ $item['id'] }})" 
                                             class="text-red-500 font-bold">Remove</button>
-                                    <p class="font-bold">LKR {{ number_format($item->product->current_price, 2) }}</p>
+                                    <p class="font-bold">LKR {{ number_format($item['product']['current_price'], 2) }}</p>
                                 </div>
                             </div>
                         @endforeach

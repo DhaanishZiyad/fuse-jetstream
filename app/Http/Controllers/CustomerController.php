@@ -55,16 +55,25 @@ class CustomerController extends Controller
     // Add product to cart
     public function addToCart(Request $request)
     {
-        $product = Product::findOrFail($request->product_id);
-        $quantity = $request->quantity;
+        // Validate the input data to ensure size, product_id, and quantity are provided
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'size' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-        // Check if the product is already in the cart
+        $product = Product::findOrFail($validated['product_id']);
+        $quantity = $validated['quantity'];
+        $size = $validated['size'];
+
+        // Check if the product with the selected size is already in the cart
         $cartItem = Cart::where('customer_id', Auth::id())
                         ->where('product_id', $product->id)
+                        ->where('size', $size)
                         ->first();
 
         if ($cartItem) {
-            // If item is already in the cart, update quantity
+            // If the item is already in the cart, update the quantity
             $cartItem->quantity += $quantity;
             $cartItem->save();
         } else {
@@ -72,11 +81,12 @@ class CustomerController extends Controller
             Cart::create([
                 'customer_id' => Auth::id(),
                 'product_id' => $product->id,
+                'size' => $size,
                 'quantity' => $quantity,
             ]);
         }
 
-        // Redirect back to the cart page or another appropriate page
+        // Redirect back to the cart page
         return redirect()->route('customer.show-cart')->with('success', 'Product added to cart');
     }
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class ShoppingCart extends Component
 {
-    public $cartItems; // If using Collection
+    public $cartItems = [];
     public $subtotal = 0;
     public $shipping = 0;
     public $total = 0;
@@ -18,12 +18,11 @@ class ShoppingCart extends Component
 
     public function mount()
 {
-    $this->cartItems = collect();
-
     if (auth()->check()) {
         $this->cartItems = CartModel::with('product')
             ->where('customer_id', auth()->id())
-            ->get();
+            ->get()
+            ->toArray(); // Convert to array
     }
 
     $this->calculateTotals();
@@ -31,19 +30,18 @@ class ShoppingCart extends Component
 
 public function updateQuantity($itemId, $quantity)
 {
-    // Find the item in the database
-    $item = CartModel::find($itemId);
+    // Find the item in the array by matching the ID
+    $itemIndex = array_search($itemId, array_column($this->cartItems, 'id'));
 
-    if ($item) {
+    if ($itemIndex !== false) {
         // Ensure the quantity is at least 1
-        $item->quantity = max(1, $quantity);
-        $item->save(); // Persist changes to the database
-    }
+        $this->cartItems[$itemIndex]['quantity'] = max(1, $quantity);
 
-    // Refresh cart items to reflect updated quantities
-    $this->cartItems = CartModel::with('product')
-        ->where('customer_id', auth()->id())
-        ->get();
+        // Persist changes to the database
+        CartModel::where('id', $itemId)->update([
+            'quantity' => max(1, $quantity)
+        ]);
+    }
 
     // Recalculate totals after updating quantities
     $this->calculateTotals();
@@ -53,8 +51,10 @@ public function removeItem($itemId)
 {
     CartModel::where('id', $itemId)->delete();
 
-    // Refresh the cart items collection to reflect the changes
-    $this->cartItems = $this->cartItems->reject(fn($item) => $item->id === $itemId);
+    // Remove the item from the array
+    $this->cartItems = array_filter($this->cartItems, function($item) use ($itemId) {
+        return $item['id'] !== $itemId;
+    });
 
     // Recalculate totals
     $this->calculateTotals();
@@ -64,10 +64,12 @@ public function removeItem($itemId)
 
 public function calculateTotals()
 {
-    $this->subtotal = $this->cartItems->sum(function ($item) {
-        return $item->quantity * $item->product->current_price;
-    });
+    // Use array_reduce() for subtotal calculation
+    $this->subtotal = array_reduce($this->cartItems, function ($carry, $item) {
+        return $carry + ($item['quantity'] * $item['product']['current_price']);
+    }, 0);
 
+    // Assuming shipping is a fixed value
     $this->shipping = 500;
 
     $this->total = $this->subtotal + $this->shipping;

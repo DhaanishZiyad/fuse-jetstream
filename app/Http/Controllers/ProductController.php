@@ -25,6 +25,7 @@ class ProductController extends Controller
             'old_price' => 'nullable|numeric|min:0',
             'current_price' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string|max:5000', // Validate description
         ]);
 
         // Store the image in the 'public/images' directory and get the path
@@ -36,6 +37,7 @@ class ProductController extends Controller
             'old_price' => $validated['old_price'],
             'current_price' => $validated['current_price'],
             'image_path' => $imagePath,
+            'description' => $validated['description'],
         ]);
 
         return redirect()->route('admin.add-products')->with('success', 'Product added successfully!');
@@ -54,6 +56,7 @@ class ProductController extends Controller
             'old_price' => 'nullable|numeric|min:0',
             'current_price' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string|max:5000', // Validate description
         ]);
 
         $product = Product::findOrFail($id);
@@ -67,6 +70,7 @@ class ProductController extends Controller
             'name' => $validated['name'],
             'old_price' => $validated['old_price'],
             'current_price' => $validated['current_price'],
+            'description' => $validated['description'],
         ]);
 
         return redirect()->route('admin.all-products')->with('success', 'Product updated successfully!');

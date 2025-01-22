@@ -15,6 +15,7 @@ class Cart extends Model
         'customer_id',
         'product_id',
         'quantity',
+        'size',
     ];
 
     // Relationships

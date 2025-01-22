@@ -29,7 +29,7 @@
 <!-- Product Cards Section -->
 <div class="py-10 flex justify-center bg-[#DCDCDC] font-ruda flex-col items-center">
     <div class="flex w-9/12 pb-8">
-        <h1 class="font-raleway font-bold text-3xl text-[black]">Latest Additions</h1>
+        <h1 class="font-raleway font-bold text-2xl text-[black]">LATEST ADDITIONS</h1>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 w-9/12 pb-12">

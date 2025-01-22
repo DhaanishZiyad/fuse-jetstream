@@ -28,6 +28,9 @@
                     </li>
                 </ul>
             </div>  
+            <div class="w-1/3">
+                @livewire('search-dropdown')
+            </div>
 
             <div class="flex items-center">
                 <a href="#">
