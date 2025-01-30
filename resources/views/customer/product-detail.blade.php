@@ -31,7 +31,7 @@
                         @foreach ($sizes as $size)
                             <button 
                                 type="button" 
-                                class="size-button px-4 py-2 border border-gray-300 rounded-md text-gray-700 font-semibold focus:outline-none w-16"
+                                class="size-button px-4 py-2 border border-gray-300 bg-white rounded-md text-gray-700 font-semibold focus:outline-none w-16"
                                 data-size="{{ $size }}"
                                 onclick="selectSize('{{ $size }}')">
                                 {{ $size }}
@@ -40,14 +40,16 @@
                     </div>
                 </div>
 
-                @if (!empty($product->old_price))
-                    <p class="text-gray-500 line-through font-semibold mt-6">LKR {{ number_format($product->old_price, 2) }}</p>
-                @endif
-                <p class="text-red-500 text-xl font-extrabold">LKR {{ number_format($product->current_price, 2) }}</p>
-
+                <!-- Price Section -->
+                <div class="mt-6">
+                    @if (!empty($product->old_price))
+                        <p class="text-gray-500 line-through font-semibold">LKR {{ number_format($product->old_price, 2) }}</p>
+                    @endif
+                    <p class="text-red-500 text-xl font-extrabold">LKR {{ number_format($product->current_price, 2) }}</p>
+                </div>
                 <!-- Quantity Selector -->
                 <div class="flex items-center mt-4">
-                    <div class="flex items-center border-2 border-fuse-green-500 rounded-md">
+                    <div class="flex items-center border-2 border-fuse-green-500 rounded-md bg-white">
                         <button 
                             type="button" 
                             class="px-3 text-lg font-bold"
@@ -71,10 +73,16 @@
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="quantity" id="quantityInput" value="1"> <!-- Hidden field to pass the quantity -->
                         <input type="hidden" name="size" id="sizeInput" value=""> <!-- Hidden field to pass the selected size -->
+                        <!-- Add to Cart Button -->
                         <button type="submit" class="bg-[#21A179] border-2 border-fuse-green-500 text-white px-6 py-2 rounded-md font-bold">
                             Add to Cart
                         </button>
+                        
                     </form>
+                    <!-- Wishlist Toggle (Livewire) -->
+                    <div class="ml-3 rounded-full border-2 border-fuse-green-500">
+                            @livewire('wishlist-toggle', ['product' => $product], key($product->id))
+                        </div>
                 </div>
             </div>
         </div>
@@ -111,10 +119,10 @@
         document.querySelectorAll('.size-button').forEach(button => {
             if (button.dataset.size === selectedSize) {
                 button.classList.add('bg-[#21A179]', 'text-white', 'border-[#21A179]');
-                button.classList.remove('text-gray-700', 'border-gray-300');
+                button.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
             } else {
                 button.classList.remove('bg-[#21A179]', 'text-white', 'border-[#21A179]');
-                button.classList.add('text-gray-700', 'border-gray-300');
+                button.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
             }
         });
     }

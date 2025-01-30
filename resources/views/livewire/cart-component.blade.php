@@ -1,5 +1,5 @@
-<div class="font-ruda items-center bg-white h-[400px] flex justify-center items-center">
-    <div class="w-9/12 py-6">
+<div class="font-ruda items-center py-10 flex justify-center">
+    <div class="w-9/12">
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Cart Items Column -->
             <div class="w-full md:w-2/3">
@@ -43,7 +43,7 @@
             </div>
 
             <!-- Cart Summary Column -->
-            <div class="w-full md:w-1/3 bg-white p-6">
+            <div class="w-full md:w-1/3 p-6">
                 <div class="space-y-4">
                     <div class="flex justify-between">
                         <span class="font-bold">SUBTOTAL</span>

@@ -18,4 +18,14 @@ class Product extends Model
         'description',
     ];
 
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function wishlistedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'wishlists');
+    }
+
 }

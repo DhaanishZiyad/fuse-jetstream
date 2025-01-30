@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body>
+<body class="flex flex-col min-h-screen bg-[#e9e9e9]">
     <header class="bg-[#1E1E1E] font-raleway font-extrabold text-fuse-green-500">
         <nav class="flex justify-between items-center w-9/12 mx-auto h-20">
             <div>
@@ -49,7 +49,7 @@
         </nav>
     </header>
 
-    <main>
+    <main class="flex-grow">
         @yield('content')
     </main>
 

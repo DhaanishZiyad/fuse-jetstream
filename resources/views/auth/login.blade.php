@@ -4,9 +4,9 @@
 
 @section('content')
 
-<div class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold text-center text-fuse-green-500 mb-6">Login to Your Account</h2>
+<div class="flex items-center justify-center py-24 font-raleway">
+    <div class="w-full max-w-md bg-[#1E1E1E] p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold font-raleway text-fuse-green-500 mb-6">LOG IN</h2>
 
         <!-- Validation Errors -->
         @if ($errors->any())
@@ -32,46 +32,46 @@
 
             <!-- Email -->
             <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-semibold">Email Address</label>
                 <input 
                     id="email" 
                     type="email" 
                     name="email" 
                     value="{{ old('email') }}" 
+                    placeholder="Email"
                     required 
                     autofocus 
                     autocomplete="username"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none font-sans focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 >
             </div>
 
             <!-- Password -->
             <div class="mb-4">
-                <label for="password" class="block text-gray-700 font-semibold">Password</label>
                 <input 
                     id="password" 
                     type="password" 
                     name="password" 
+                    placeholder="Password"
                     required 
                     autocomplete="current-password"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none font-sans focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 >
             </div>
 
             <!-- Remember Me -->
             <div class="flex items-center justify-between mb-4">
-                <label for="remember_me" class="inline-flex items-center">
+                <label for="remember_me" class="inline-flex items-center text-sm">
                     <input 
                         id="remember_me" 
                         type="checkbox" 
                         name="remember" 
                         class="form-checkbox text-fuse-green-500 focus:ring-fuse-green-500"
                     >
-                    <span class="ml-2 text-gray-700">Remember Me</span>
+                    <span class="ml-2 text-white">Remember Me</span>
                 </label>
 
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="text-sm text-fuse-green-500 hover:underline">Forgot Password?</a>
+                    <a href="{{ route('password.request') }}" class="text-sm text-white hover:underline">Forgot Password?</a>
                 @endif
             </div>
 
@@ -85,7 +85,7 @@
         </form>
 
         <!-- Additional Links -->
-        <p class="mt-6 text-center text-sm text-gray-600">
+        <p class="mt-6 text-center text-sm text-white">
             Don't have an account? 
             <a href="{{ route('register') }}" class="text-fuse-green-500 hover:underline">Sign up</a>
         </p>

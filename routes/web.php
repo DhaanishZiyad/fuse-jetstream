@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
@@ -63,4 +64,9 @@ Route::middleware(['auth', 'verified', RoleMiddleware::class . ':customer'])->gr
 
     Route::post('/cart/add', [CustomerController::class, 'addToCart'])
         ->name('customer.add-cart');
+
+    Route::get('/wishlist', [WishlistController::class, 'index'])
+        ->name('customer.wishlist');
+    
+
 });

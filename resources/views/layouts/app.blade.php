@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body>
+<body class="flex flex-col min-h-screen bg-[#e9e9e9]">
     <header class="bg-fuse-green-500 font-raleway font-extrabold text-[#1E1E1E]">
         <nav class="flex justify-between items-center w-9/12 mx-auto h-20">
             <div>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="flex items-center">
-                <a href="#">
+                <a href="{{ route('customer.wishlist') }}">
                     <img class="h-7" src="{{ asset('images/Heart.svg') }}" alt="Profie" />
                 </a>
                 <a href="{{ route('customer.show-cart') }}">
@@ -57,7 +57,7 @@
         </nav>
     </header>
 
-    <main>
+    <main class="flex-grow">
         @yield('content')
     </main>
 
