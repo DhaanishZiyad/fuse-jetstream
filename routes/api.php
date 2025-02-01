@@ -6,15 +6,19 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Controllers\AuthController;
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+});
 
 // Get all products
 Route::get('/products', function () {
     return response()->json(Product::all(), 200);
-})->middleware('auth:sanctum');
+});
 
 // Get a single product by ID
 Route::get('/products/{id}', function ($id) {
@@ -72,27 +76,4 @@ Route::delete('/products/{id}', function ($id) {
     $product->delete();
 
     return response()->json(['message' => 'Product deleted successfully'], 200);
-});
-
-
-
-Route::post('/login', function (Request $request) {
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|string',
-    ]);
-
-    $user = User::where('email', $credentials['email'])->first();
-
-    if (!$user || !Hash::check($credentials['password'], $user->password)) {
-        return response()->json(['message' => 'Invalid credentials'], 401);
-    }
-
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'message' => 'Login successful',
-        'token' => $token,
-        'user' => $user,
-    ], 200);
 });

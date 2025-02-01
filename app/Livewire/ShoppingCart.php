@@ -16,7 +16,7 @@ class ShoppingCart extends Component
 
     protected $listeners = ['cartUpdated' => 'updateCart'];
 
-    public function mount()
+public function mount()
 {
     if (auth()->check()) {
         $this->cartItems = CartModel::with('product')
