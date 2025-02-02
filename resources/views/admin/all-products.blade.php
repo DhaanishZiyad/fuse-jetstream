@@ -3,8 +3,14 @@
 @section('title', 'All Products')
 
 @section('content')
-<div class="container mx-auto p-4 w-[80%]">
-    <h1 class="text-2xl font-bold mb-4">All Products</h1>
+
+<div class="flex justify-center items-center bg-fuse-green-500">
+    <div class="flex w-9/12 align-center items-center mt-14 py-7">
+        <p class="font-extrabold font-raleway text-7xl text-white">ALL PRODUCTS</p>
+    </div>
+</div>
+
+<div class="container mx-auto py-8 w-9/12">
     @if(session('success'))
         <div id="success-message" 
              class="fixed bottom-5 right-5 bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg">

@@ -66,7 +66,7 @@
             <div class="flex-col w-[25%] pt-12">
                 <img class="h-10" src="{{ asset('images/fuse_logo green.png') }}" alt="">
                 <p class="font-raleway font-bold uppercase text-fuse-green-500 pt-3 text-xl">Fuse Jerseys</p>
-                <p class="font-ruda text-white">No 69, Sigma Lane, Ohio</p>
+                <p class="font-ruda text-white">No 8, Sri Sunandarama Road, Kalubowila</p>
                 <p class="font-ruda text-white">+960 779 8513</p>
                 <p class="font-ruda text-white">fuse.jerseys@gmail.com</p>
             </div>
@@ -74,7 +74,7 @@
                 <div class="relative flex">
                     <div class="">
                         <p class="font-raleway font-bold uppercase pt-2 text-fuse-green-500">navigation</p>
-                        <a href="#"><p class="font-raleway font-bold uppercase pt-2 hover:text-gray-400 text-white">out PRODUCTS</p></a>
+                        <a href="{{ route('customer.all-products') }}"><p class="font-raleway font-bold uppercase pt-2 hover:text-gray-400 text-white">OUR PRODUCTS</p></a>
                         <a href="#"><p class="font-raleway font-bold uppercase pt-2 hover:text-gray-400 text-white">about us</p></a>
                     </div>
                     <div class="absolute flex-row left-[50%]">
@@ -87,9 +87,9 @@
             </div>
             <div class="flex flex-col w-[25%] justify-end ">
                 <div class="flex justify-end">
-                    <a href="#"><img class="pl-5" src="/fuse_website_final/src/media/X.svg" alt=""></a>
-                    <a href="#"><img class="pl-5" src="/fuse_website_final/src/media/Facebook.svg" alt=""></a>
-                    <a href="#"><img class="pl-5" src="/fuse_website_final/src/media/Social Icons.svg" alt=""></a>
+                    <a href="#"><img class="pl-5" src="{{ asset('images/X.svg') }}" alt=""></a>
+                    <a href="#"><img class="pl-5" src="{{ asset('images/Facebook.svg') }}" alt=""></a>
+                    <a href="#"><img class="pl-5" src="{{ asset('images/Social Icons.svg') }}" alt=""></a>
                 </div>
             </div>
         </div>

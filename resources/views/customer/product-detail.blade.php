@@ -8,9 +8,9 @@
     <div class="flex flex-col md:flex-row w-9/12 overflow-hidden">
         <!-- Image Section -->
         <div class="w-full md:w-1/2 p-6 flex justify-end">
-            <img src="{{ asset('storage/' . $product->image_path) }}" 
-                alt="{{ $product->name }}" 
-                class="w-96 h-96 object-cover">
+        <img src="{{ asset('storage/' . $product->image_path) }}" 
+    alt="{{ $product->name }}" 
+    class="w-full max-w-md h-auto object-cover">
         </div>
 
         <!-- Details Section -->
