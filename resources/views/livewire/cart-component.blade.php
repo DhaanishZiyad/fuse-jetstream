@@ -3,12 +3,10 @@
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Cart Items Column -->
             <div class="w-full md:w-2/3">
-                <h2 class="text-2xl font-raleway font-bold text-fuse-green-500 mb-4">YOUR CART</h2>
-                <hr class="mb-2 border-fuse-green-500 border-[1px]">
                 @if (count($cartItems) > 0)
                     <div class="space-y-6">
                         @foreach ($cartItems as $item)
-                            <div class="flex justify-between items-center border-b pb-4">
+                            <div class="flex justify-between items-center border-b">
                                 <div class="flex items-center space-x-4">
                                     <img src="{{ asset('storage/' . $item['product']['image_path']) }}" 
                                          alt="{{ $item['product']['name'] }}" 
@@ -30,11 +28,13 @@
                                         wire:model="cartItems.{{ $loop->index }}.quantity" 
                                         wire:change="updateQuantity({{ $item['id'] }}, $event.target.value)">
                                     <!-- Remove Button -->
-                                    <button wire:click="removeItem({{ $item['id'] }})" 
-                                            class="text-red-500 font-bold">Remove</button>
+                                    <button wire:click="removeItem({{ $item['id'] }})">
+                                        <img src="{{ asset('images/Trash.svg') }}" alt="Remove">
+                                    </button>
                                     <p class="font-bold">LKR {{ number_format($item['product']['current_price'], 2) }}</p>
                                 </div>
                             </div>
+                            <hr class="border-fuse-green-500 border-[1px]">
                         @endforeach
                     </div>
                 @else
@@ -58,7 +58,7 @@
                         <span class="text-lg font-semibold">LKR {{ number_format($total, 2) }}</span>
                     </div>
                     <div class="mt-6">
-                        <button class="w-full bg-[#21A179] text-white px-5 py-3 rounded-md font-bold">
+                        <button wire:click="checkout" class="w-full bg-[#21A179] text-white px-5 py-3 rounded-md font-bold">
                             Checkout
                         </button>
                     </div>

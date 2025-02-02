@@ -74,7 +74,7 @@
                         <input type="hidden" name="quantity" id="quantityInput" value="1"> <!-- Hidden field to pass the quantity -->
                         <input type="hidden" name="size" id="sizeInput" value=""> <!-- Hidden field to pass the selected size -->
                         <!-- Add to Cart Button -->
-                        <button type="submit" class="bg-[#21A179] border-2 border-fuse-green-500 text-white px-6 py-2 rounded-md font-bold">
+                        <button type="submit" class="bg-[#21A179] border-2 border-fuse-green-500 text-white px-6 py-2 rounded-md font-raleway font-bold">
                             Add to Cart
                         </button>
                         

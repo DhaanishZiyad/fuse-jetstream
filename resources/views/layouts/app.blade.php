@@ -39,7 +39,7 @@
                 <a href="{{ route('customer.show-cart') }}">
                     <img class="h-7 ml-7" src="{{ asset('images/Shopping Card.svg') }}" alt="Profie" />
                 </a>
-                <a href="#">
+                <a href="{{ route('customer.profile') }}">
                     <img class="h-7 ml-7" src="{{ asset('images/Profile.svg') }}" alt="Profie" />
                 </a>
                 @auth

@@ -64,10 +64,11 @@
     </div>
 
     <div class="flex w-[80%] justify-center">
-        <button class="font-raleway font-bold text-[#21A179] outline outline-2 outline-[#21A179] rounded-md bg-white px-5 py-2">
+        <a href="{{ route('customer.all-products') }}" class="font-raleway font-bold text-[#21A179] outline outline-2 outline-[#21A179] rounded-md bg-white px-5 py-2">
             VIEW ALL PRODUCTS
-        </button>
+        </a>
     </div>
+    <a href=""></a>
 </div>
 
 <!-- JavaScript for Heart Toggle -->

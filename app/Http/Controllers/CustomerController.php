@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 
 class CustomerController extends Controller
 {
@@ -88,6 +89,48 @@ class CustomerController extends Controller
 
         // Redirect back to the cart page
         return redirect()->route('customer.show-cart')->with('success', 'Product added to cart');
+    }
+
+    // public function profile()
+    // {
+    //     // Retrieve the authenticated user
+    //     $user = Auth::user();
+    //     $orders = auth()->user()->orders()->latest()->get();
+
+    //     // Pass the user data to the profile view
+    //     return view('customer.profile', compact('user'));
+    // }
+
+    public function profile()
+    {
+        $orders = Order::where('user_id', auth()->id())->latest()->get();
+
+        return view('customer.profile', compact('orders'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        // Validate input fields
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'phone' => 'nullable|string|max:15',
+        ]);
+
+        // Update user details
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'city' => $request->city,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
 

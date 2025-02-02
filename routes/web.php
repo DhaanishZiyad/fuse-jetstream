@@ -67,6 +67,11 @@ Route::middleware(['auth', 'verified', RoleMiddleware::class . ':customer'])->gr
 
     Route::get('/wishlist', [WishlistController::class, 'index'])
         ->name('customer.wishlist');
-    
+
+    Route::get('/profile', [CustomerController::class, 'profile'])
+        ->name('customer.profile');
+
+    Route::put('/profile/update', [CustomerController::class, 'updateProfile'])
+        ->name('profile.update');
 
 });

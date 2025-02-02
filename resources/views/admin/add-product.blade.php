@@ -4,26 +4,30 @@
 
 @section('content')
 
-<div class="container mx-auto p-6 w-[80%]">
-    <h2 class="text-2xl font-bold mb-4">Add Product</h2>
+<div class="flex justify-center items-center bg-fuse-green-500">
+    <div class="flex w-9/12 align-center items-center mt-14 py-7">
+        <p class="font-extrabold font-raleway text-7xl text-white">ADD A PRODUCT</p>
+    </div>
+</div>
+
+<div class="container mx-auto py-8 w-9/12">
     @if(session('success'))
         <div id="success-message" 
-             class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
+             class="fixed bottom-5 right-5 bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg">
             {{ session('success') }}
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.add-products.store') }}" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form method="POST" action="{{ route('admin.add-products.store') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Product Name -->
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Product Name</label>
             <input 
                 type="text" 
                 id="name" 
                 name="name" 
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter product name"
+                placeholder="Product Name"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 value="{{ old('name') }}"
                 required>
             @error('name')
@@ -33,13 +37,12 @@
 
         <!-- Old Price -->
         <div class="mb-4">
-            <label for="old_price" class="block text-gray-700 text-sm font-bold mb-2">Old Price</label>
             <input 
                 type="number" 
                 id="old_price" 
                 name="old_price" 
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter old price"
+                placeholder="Old Price"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 value="{{ old('old_price') }}">
             @error('old_price')
                 <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -48,13 +51,12 @@
 
         <!-- Current Price -->
         <div class="mb-4">
-            <label for="current_price" class="block text-gray-700 text-sm font-bold mb-2">Current Price</label>
             <input 
                 type="number" 
                 id="current_price" 
                 name="current_price" 
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter current price"
+                placeholder="Current Price"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 value="{{ old('current_price') }}"
                 required>
             @error('current_price')
@@ -64,13 +66,12 @@
 
         <!-- Description -->
         <div class="mb-4">
-            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Product Description</label>
             <textarea 
                 id="description" 
                 name="description" 
                 rows="4" 
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter product description">{{ old('description') }}</textarea>
+                placeholder="Product Description"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent">{{ old('description') }}</textarea>
             @error('description')
                 <span class="text-red-500 text-xs">{{ $message }}</span>
             @enderror
@@ -78,12 +79,11 @@
 
         <!-- Image -->
         <div class="mb-4">
-            <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Product Image</label>
             <input 
                 type="file" 
                 id="image" 
                 name="image" 
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuse-green-500 focus:border-transparent"
                 accept="image/*"
                 required>
             @error('image')
@@ -92,10 +92,10 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="flex items-center justify-between">
+        <div class="flex justify-end">
             <button 
                 type="submit" 
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                class="bg-fuse-green-500 text-white font-raleway font-bold py-2 px-4 rounded-md hover:bg-fuse-green-600 focus:outline-none focus:ring-2 focus:ring-fuse-green-500">
                 Add Product
             </button>
         </div>

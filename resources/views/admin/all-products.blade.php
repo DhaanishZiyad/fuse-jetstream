@@ -7,7 +7,7 @@
     <h1 class="text-2xl font-bold mb-4">All Products</h1>
     @if(session('success'))
         <div id="success-message" 
-             class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
+             class="fixed bottom-5 right-5 bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg">
             {{ session('success') }}
         </div>
     @endif

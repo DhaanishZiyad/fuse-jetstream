@@ -4,9 +4,15 @@
 
 @section('content')
 
+<div class="flex justify-center items-center bg-[#1E1E1E]">
+    <div class="flex w-9/12 align-center items-center mt-14 py-7">
+        <p class="font-extrabold font-raleway text-7xl text-white">YOUR CART</p>
+    </div>
+</div>
+
 @if(session('success'))
     <div id="success-message" 
-         class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
+         class="fixed bottom-5 right-5 bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg">
         {{ session('success') }}
     </div>
 @endif

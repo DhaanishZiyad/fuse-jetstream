@@ -75,6 +75,44 @@ public function calculateTotals()
     $this->total = $this->subtotal + $this->shipping;
 }
 
+public function checkout()
+{
+    if (empty($this->cartItems)) {
+        session()->flash('error', 'Your cart is empty.');
+        return;
+    }
+
+    $order = \App\Models\Order::create([
+        'user_id' => auth()->id(),
+        'order_number' => 'ORD' . now()->timestamp, // Unique order number
+        'total' => $this->total,
+        'status' => 'pending',
+        'address' => auth()->user()->address ?? 'No address provided',
+        'city' => auth()->user()->city ?? 'No city provided',
+        'phone' => auth()->user()->phone ?? 'No phone provided',
+    ]);
+
+    // Save each cart item to the order_items table
+    foreach ($this->cartItems as $item) {
+        \App\Models\OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $item['product_id'],
+            'quantity' => $item['quantity'],
+            'price' => $item['product']['current_price'],
+            'size' => $item['size'], // Add this line to store the size
+        ]);
+    }
+
+    // Clear the cart after checkout
+    CartModel::where('customer_id', auth()->id())->delete();
+    $this->cartItems = [];
+    $this->calculateTotals();
+
+    session()->flash('success', 'Order placed successfully!');
+
+    return redirect()->route('customer.profile'); // Redirect to profile page
+}
+
 public function render()
 {
     return view('livewire.cart-component', [
