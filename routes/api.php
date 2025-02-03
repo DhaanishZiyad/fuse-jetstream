@@ -77,3 +77,90 @@ Route::delete('/products/{id}', function ($id) {
 
     return response()->json(['message' => 'Product deleted successfully'], 200);
 });
+
+// Get all cart items for the authenticated user
+Route::get('/cart', function () {
+    $cartItems = Cart::where('customer_id', Auth::id())->with('product')->get();
+
+    // Calculate subtotal, shipping, and total
+    $subtotal = $cartItems->sum(function ($item) {
+        return $item->quantity * $item->product->current_price;
+    });
+
+    $shipping = 500;  // Example static shipping fee
+    $total = $subtotal + $shipping;
+
+    return response()->json([
+        'cart_items' => $cartItems,
+        'subtotal' => $subtotal,
+        'shipping' => $shipping,
+        'total' => $total
+    ], 200);
+});
+
+// Add a product to the cart
+Route::post('/cart', function (Request $request) {
+    $validated = $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'size' => 'required|string',
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $cartItem = Cart::where('customer_id', Auth::id())
+        ->where('product_id', $validated['product_id'])
+        ->where('size', $validated['size'])
+        ->first();
+
+    if ($cartItem) {
+        // Update quantity if item exists
+        $cartItem->quantity += $validated['quantity'];
+        $cartItem->save();
+    } else {
+        // Add new item
+        Cart::create([
+            'customer_id' => Auth::id(),
+            'product_id' => $validated['product_id'],
+            'size' => $validated['size'],
+            'quantity' => $validated['quantity'],
+        ]);
+    }
+
+    return response()->json(['message' => 'Product added to cart'], 201);
+});
+
+// Update cart item quantity
+Route::put('/cart/{id}', function (Request $request, $id) {
+    $validated = $request->validate([
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $cartItem = Cart::where('customer_id', Auth::id())->find($id);
+
+    if (!$cartItem) {
+        return response()->json(['message' => 'Cart item not found'], 404);
+    }
+
+    $cartItem->quantity = $validated['quantity'];
+    $cartItem->save();
+
+    return response()->json(['message' => 'Cart updated successfully'], 200);
+});
+
+// Remove a single item from the cart
+Route::delete('/cart/{id}', function ($id) {
+    $cartItem = Cart::where('customer_id', Auth::id())->find($id);
+
+    if (!$cartItem) {
+        return response()->json(['message' => 'Cart item not found'], 404);
+    }
+
+    $cartItem->delete();
+
+    return response()->json(['message' => 'Item removed from cart'], 200);
+});
+
+// Clear entire cart
+Route::delete('/cart/clear', function () {
+    Cart::where('customer_id', Auth::id())->delete();
+    return response()->json(['message' => 'Cart cleared'], 200);
+});

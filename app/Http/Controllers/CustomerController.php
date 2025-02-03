@@ -91,16 +91,6 @@ class CustomerController extends Controller
         return redirect()->route('customer.show-cart')->with('success', 'Product added to cart');
     }
 
-    // public function profile()
-    // {
-    //     // Retrieve the authenticated user
-    //     $user = Auth::user();
-    //     $orders = auth()->user()->orders()->latest()->get();
-
-    //     // Pass the user data to the profile view
-    //     return view('customer.profile', compact('user'));
-    // }
-
     public function profile()
     {
         $orders = Order::where('user_id', auth()->id())->latest()->get();
