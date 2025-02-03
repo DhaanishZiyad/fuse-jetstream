@@ -98,15 +98,18 @@ Route::get('/cart', function () {
     ], 200);
 });
 
-// Add a product to the cart
+
+// Add a product to the cart (flutter test)
 Route::post('/cart', function (Request $request) {
+    $customerId = $request->header('user_id', Auth::id());  // Use header 'user_id' for testing or fallback to Auth::id()
+
     $validated = $request->validate([
         'product_id' => 'required|exists:products,id',
         'size' => 'required|string',
         'quantity' => 'required|integer|min:1',
     ]);
 
-    $cartItem = Cart::where('customer_id', Auth::id())
+    $cartItem = Cart::where('customer_id', $customerId)
         ->where('product_id', $validated['product_id'])
         ->where('size', $validated['size'])
         ->first();
@@ -118,7 +121,7 @@ Route::post('/cart', function (Request $request) {
     } else {
         // Add new item
         Cart::create([
-            'customer_id' => Auth::id(),
+            'customer_id' => $customerId,
             'product_id' => $validated['product_id'],
             'size' => $validated['size'],
             'quantity' => $validated['quantity'],
@@ -127,6 +130,36 @@ Route::post('/cart', function (Request $request) {
 
     return response()->json(['message' => 'Product added to cart'], 201);
 });
+
+// // Add a product to the cart
+// Route::post('/cart', function (Request $request) {
+//     $validated = $request->validate([
+//         'product_id' => 'required|exists:products,id',
+//         'size' => 'required|string',
+//         'quantity' => 'required|integer|min:1',
+//     ]);
+
+//     $cartItem = Cart::where('customer_id', Auth::id())
+//         ->where('product_id', $validated['product_id'])
+//         ->where('size', $validated['size'])
+//         ->first();
+
+//     if ($cartItem) {
+//         // Update quantity if item exists
+//         $cartItem->quantity += $validated['quantity'];
+//         $cartItem->save();
+//     } else {
+//         // Add new item
+//         Cart::create([
+//             'customer_id' => Auth::id(),
+//             'product_id' => $validated['product_id'],
+//             'size' => $validated['size'],
+//             'quantity' => $validated['quantity'],
+//         ]);
+//     }
+
+//     return response()->json(['message' => 'Product added to cart'], 201);
+// });
 
 // Update cart item quantity
 Route::put('/cart/{id}', function (Request $request, $id) {
