@@ -207,6 +207,7 @@ Route::get('/wishlist', function () {
             'id' => $item->id,
             'product_name' => $item->product->name,
             'product_image' => url('storage/' . $item->product->image_path),
+            'old_price' => $item->product->old_price,
             'current_price' => $item->product->current_price,
         ];
     }), 200);
