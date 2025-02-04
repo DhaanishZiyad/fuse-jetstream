@@ -101,7 +101,7 @@ Route::delete('/products/{id}', function ($id) {
 // })->middleware('auth:sanctum');
 
 Route::get('/cart', function () {
-    $cartItems = Cart::where('user_id', Auth::id())
+    $cartItems = Cart::where('customer_id', Auth::id())
         ->with('product') // Ensure the product relationship exists
         ->get();
 
@@ -198,7 +198,7 @@ Route::delete('/cart/clear', function () {
 
 // Get all wishlist items for the authenticated user
 Route::get('/wishlist', function () {
-    $wishlistItems = Wishlist::where('customer_id', Auth::id())
+    $wishlistItems = Wishlist::where('user_id', Auth::id())
         ->with('product') // Ensure the product relationship exists
         ->get();
 
