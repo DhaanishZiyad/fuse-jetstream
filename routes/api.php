@@ -97,7 +97,7 @@ Route::get('/cart', function () {
         'shipping' => $shipping,
         'total' => $total
     ], 200);
-});
+})->middleware('auth:sanctum');
 
 // // Add a product to the cart
 Route::post('/cart', function (Request $request) {
@@ -145,7 +145,7 @@ Route::put('/cart/{id}', function (Request $request, $id) {
     $cartItem->save();
 
     return response()->json(['message' => 'Cart updated successfully'], 200);
-});
+})->middleware('auth:sanctum');
 
 // Remove a single item from the cart
 Route::delete('/cart/{id}', function ($id) {
@@ -158,10 +158,10 @@ Route::delete('/cart/{id}', function ($id) {
     $cartItem->delete();
 
     return response()->json(['message' => 'Item removed from cart'], 200);
-});
+})->middleware('auth:sanctum');
 
 // Clear entire cart
 Route::delete('/cart/clear', function () {
     Cart::where('customer_id', Auth::id())->delete();
     return response()->json(['message' => 'Cart cleared'], 200);
-});
+})->middleware('auth:sanctum');
