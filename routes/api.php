@@ -80,24 +80,53 @@ Route::delete('/products/{id}', function ($id) {
 });
 
 // Get all cart items for the authenticated user
+// Route::get('/cart', function () {
+//     $cartItems = Cart::where('customer_id', Auth::id())->with('product')->get();
+
+//     // Calculate subtotal, shipping, and total
+//     $subtotal = $cartItems->sum(function ($item) {
+//         return $item->quantity * $item->product->current_price;
+//     });
+
+//     $shipping = 500;  // Example static shipping fee
+//     $total = $subtotal + $shipping;
+
+//     return response()->json([
+//         'cart_items' => $cartItems,
+//         'subtotal' => $subtotal,
+//         'shipping' => $shipping,
+//         'total' => $total
+//     ], 200);
+// })->middleware('auth:sanctum');
+
 Route::get('/cart', function () {
-    $cartItems = Cart::where('customer_id', Auth::id())->with('product')->get();
+    $cartItems = Cart::where('customer_id', Auth::id())
+        ->with('product') // Ensure the product relationship exists
+        ->get();
 
-    // Calculate subtotal, shipping, and total
-    $subtotal = $cartItems->sum(function ($item) {
-        return $item->quantity * $item->product->current_price;
-    });
+    // Calculate subtotal
+    $subtotal = $cartItems->sum(fn($item) => $item->quantity * $item->product->current_price);
 
-    $shipping = 500;  // Example static shipping fee
+    $shipping = 500; // Static shipping fee
     $total = $subtotal + $shipping;
 
     return response()->json([
-        'cart_items' => $cartItems,
+        'cart_items' => $cartItems->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'product_name' => $item->product->name,
+                'product_image' => $item->product->image_path,
+                'current_price' => $item->product->current_price,
+                'quantity' => $item->quantity,
+                'size' => $item->size,  // Include size
+            ];
+        }),
         'subtotal' => $subtotal,
         'shipping' => $shipping,
         'total' => $total
     ], 200);
 })->middleware('auth:sanctum');
+
 
 // // Add a product to the cart
 Route::post('/cart', function (Request $request) {
