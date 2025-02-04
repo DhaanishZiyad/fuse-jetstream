@@ -237,7 +237,7 @@ Route::post('/wishlist', function (Request $request) {
 
 // Remove a single item from the wishlist
 Route::delete('/wishlist/{id}', function ($id) {
-    $wishlistItem = Wishlist::where('customer_id', Auth::id())->find($id);
+    $wishlistItem = Wishlist::where('user_id', Auth::id())->find($id);
 
     if (!$wishlistItem) {
         return response()->json(['message' => 'Wishlist item not found'], 404);
@@ -250,6 +250,6 @@ Route::delete('/wishlist/{id}', function ($id) {
 
 // Clear entire wishlist
 Route::delete('/wishlist/clear', function () {
-    Wishlist::where('customer_id', Auth::id())->delete();
+    Wishlist::where('user_id', Auth::id())->delete();
     return response()->json(['message' => 'Wishlist cleared'], 200);
 })->middleware('auth:sanctum');
