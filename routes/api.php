@@ -205,6 +205,7 @@ Route::get('/wishlist', function () {
     return response()->json($wishlistItems->map(function ($item) {
         return [
             'id' => $item->id,
+            'product_id' => $item->product->id,
             'product_name' => $item->product->name,
             'product_image' => url('storage/' . $item->product->image_path),
             'old_price' => $item->product->old_price,
