@@ -115,7 +115,7 @@ Route::get('/cart', function () {
             return [
                 'id' => $item->id,
                 'product_name' => $item->product->name,
-                'product_image' => $item->product->image_path,
+                'product_image' => url('storage/' . $item->product->image_path),
                 'current_price' => $item->product->current_price,
                 'quantity' => $item->quantity,
                 'size' => $item->size,  // Include size
