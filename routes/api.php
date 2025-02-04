@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Cart;
 use App\Http\Controllers\AuthController;
+use App\Models\Wishlist;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -193,4 +194,61 @@ Route::delete('/cart/{id}', function ($id) {
 Route::delete('/cart/clear', function () {
     Cart::where('customer_id', Auth::id())->delete();
     return response()->json(['message' => 'Cart cleared'], 200);
+})->middleware('auth:sanctum');
+
+// Get all wishlist items for the authenticated user
+Route::get('/wishlist', function () {
+    $wishlistItems = Wishlist::where('customer_id', Auth::id())
+        ->with('product') // Ensure the product relationship exists
+        ->get();
+
+    return response()->json($wishlistItems->map(function ($item) {
+        return [
+            'id' => $item->id,
+            'product_name' => $item->product->name,
+            'product_image' => url('storage/' . $item->product->image_path),
+            'current_price' => $item->product->current_price,
+        ];
+    }), 200);
+})->middleware('auth:sanctum');
+
+// Add a product to the wishlist
+Route::post('/wishlist', function (Request $request) {
+    $validated = $request->validate([
+        'product_id' => 'required|exists:products,id',
+    ]);
+
+    $wishlistItem = Wishlist::where('customer_id', Auth::id())
+        ->where('product_id', $validated['product_id'])
+        ->first();
+
+    if ($wishlistItem) {
+        return response()->json(['message' => 'Product already in wishlist'], 409);
+    }
+
+    Wishlist::create([
+        'customer_id' => Auth::id(),
+        'product_id' => $validated['product_id'],
+    ]);
+
+    return response()->json(['message' => 'Product added to wishlist'], 201);
+})->middleware('auth:sanctum');
+
+// Remove a single item from the wishlist
+Route::delete('/wishlist/{id}', function ($id) {
+    $wishlistItem = Wishlist::where('customer_id', Auth::id())->find($id);
+
+    if (!$wishlistItem) {
+        return response()->json(['message' => 'Wishlist item not found'], 404);
+    }
+
+    $wishlistItem->delete();
+
+    return response()->json(['message' => 'Item removed from wishlist'], 200);
+})->middleware('auth:sanctum');
+
+// Clear entire wishlist
+Route::delete('/wishlist/clear', function () {
+    Wishlist::where('customer_id', Auth::id())->delete();
+    return response()->json(['message' => 'Wishlist cleared'], 200);
 })->middleware('auth:sanctum');
