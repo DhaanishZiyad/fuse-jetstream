@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Cart;
 use App\Http\Controllers\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
