@@ -218,7 +218,7 @@ Route::post('/wishlist', function (Request $request) {
         'product_id' => 'required|exists:products,id',
     ]);
 
-    $wishlistItem = Wishlist::where('customer_id', Auth::id())
+    $wishlistItem = Wishlist::where('user_id', Auth::id())
         ->where('product_id', $validated['product_id'])
         ->first();
 
@@ -227,7 +227,7 @@ Route::post('/wishlist', function (Request $request) {
     }
 
     Wishlist::create([
-        'customer_id' => Auth::id(),
+        'user_id' => Auth::id(),
         'product_id' => $validated['product_id'],
     ]);
 
