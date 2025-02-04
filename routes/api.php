@@ -101,7 +101,7 @@ Route::delete('/products/{id}', function ($id) {
 // })->middleware('auth:sanctum');
 
 Route::get('/cart', function () {
-    $cartItems = Cart::where('customer_id', Auth::id())
+    $cartItems = Cart::where('user_id', Auth::id())
         ->with('product') // Ensure the product relationship exists
         ->get();
 
